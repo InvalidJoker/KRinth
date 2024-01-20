@@ -9,6 +9,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import me.invalidjoker.krinth.handlers.Projects
+import me.invalidjoker.krinth.handlers.Versions
 
 class KRinthAPI(val userAgent: String = "KRinth (InvalidJokerDE/KRinth)", val staging: Boolean = false) {
     private val client = HttpClient(CIO) {
@@ -29,5 +30,6 @@ class KRinthAPI(val userAgent: String = "KRinth (InvalidJokerDE/KRinth)", val st
     }
 
     val projects = Projects(client)
+    val versions = Versions(client)
 
 }

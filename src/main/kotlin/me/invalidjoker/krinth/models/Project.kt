@@ -195,3 +195,4 @@ data class Project(
     val loaders: List<String>,
     val gallery: List<GalleryImage>?
 )
+
