@@ -7,6 +7,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import me.invalidjoker.krinth.handlers.Projects
 
 class KRinthAPI(val userAgent: String = "KRinth (InvalidJokerDE/KRinth)", val staging: Boolean = false) {
@@ -14,15 +15,16 @@ class KRinthAPI(val userAgent: String = "KRinth (InvalidJokerDE/KRinth)", val st
         expectSuccess = false
 
         install(ContentNegotiation) {
-            json()
+            json(Json {
+                ignoreUnknownKeys = true
+                isLenient = true
+                encodeDefaults = true
+            })
         }
 
         defaultRequest {
             header(HttpHeaders.UserAgent, userAgent)
-            url {
-                protocol = URLProtocol.HTTPS
-                host = if (staging) "staging-api.modrinth.com/v2" else "api.modrinth.com/v2"
-            }
+            url("https://api.modrinth.com/v2/")
         }
     }
 

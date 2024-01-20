@@ -1,5 +1,6 @@
 package me.invalidjoker.krinth
 
+import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 
 class KRinthAPITest {
@@ -8,6 +9,12 @@ class KRinthAPITest {
 
     @Test
     fun test() {
-        api
+        val d = runBlocking {
+            return@runBlocking api.projects.getProject("fabric-api")
+        }
+
+        d?.let {
+            println(it)
+        }
     }
 }
