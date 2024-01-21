@@ -13,56 +13,31 @@ data class SearchData(
     val totalHits: Int
 )
 
-
 @Serializable
 data class ProjectHit(
     val slug: String,
     val title: String,
     val description: String,
     val categories: List<String>,
-
-    @SerialName("client_side")
-    val clientSide: String,
-
-    @SerialName("server_side")
-    val serverSide: String,
-
-    @SerialName("project_type")
-    val projectType: String,
+    @SerialName("client_side") val clientSide: ClientSide,
+    @SerialName("server_side") val serverSide: ServerSide,
+    @SerialName("project_type") val projectType: ProjectType,
     val downloads: Int,
-
-    @SerialName("icon_url")
-    val iconUrl: String,
-    val color: Int,
-
-    @SerialName("thread_id")
-    val threadId: String? = null,
-
-    @SerialName("monetization_status")
-    val monetizationStatus: String? = null,
-
-    @SerialName("project_id")
-    val projectId: String,
+    @SerialName("icon_url") val iconUrl: String?,
+    val color: Int?,
+    @SerialName("thread_id") val threadId: String? = null,
+    @SerialName("monetization_status") val monetizationStatus: MonetizationStatus? = null,
+    @SerialName("project_id") val projectId: String,
     val author: String,
-
-    @SerialName("display_categories")
-    val displayCategories: List<String>,
+    @SerialName("display_categories") val displayCategories: List<String>,
     val versions: List<String>,
     val follows: Int,
-
-    @SerialName("date_created")
-    val dateCreated: String,
-
-    @SerialName("date_modified")
-    val dateModified: String,
-
-    @SerialName("latest_version")
-    val latestVersion: String,
+    @SerialName("date_created") val dateCreated: String, // ISO-8601
+    @SerialName("date_modified") val dateModified: String, // ISO-8601
+    @SerialName("latest_version") val latestVersion: String,
     val license: String,
     val gallery: List<String>,
-
-    @SerialName("featured_gallery")
-    val featuredGallery: String?
+    @SerialName("featured_gallery") val featuredGallery: String?
 )
 
 @Serializable
