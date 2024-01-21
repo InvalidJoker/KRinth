@@ -187,7 +187,7 @@ data class Project(
     val approved: String?,
     val queued: String?,
     val followers: Int,
-    val license: ProjectLicense,
+    val license: ProjectLicense?,
     val versions: List<String>, // TODO: Create Version class
 
     @SerialName("game_versions")
@@ -195,4 +195,3 @@ data class Project(
     val loaders: List<String>,
     val gallery: List<GalleryImage>?
 )
-

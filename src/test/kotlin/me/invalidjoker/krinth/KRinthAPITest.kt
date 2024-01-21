@@ -35,8 +35,23 @@ class KRinthAPITest {
             return@runBlocking api.versions.getVersion("cXkV2nJO")
         }
 
-        d?.let {
-            println(it)
+       if (d != null) {
+           println(d)
+       } else {
+           println("null")
+       }
+    }
+
+    @Test
+    fun testSearch() {
+        val d = runBlocking {
+            return@runBlocking api.projects.searchProjects("fabric")
+        }
+
+        if (d != null) {
+            println(d)
+        } else {
+            println("null")
         }
     }
 }
