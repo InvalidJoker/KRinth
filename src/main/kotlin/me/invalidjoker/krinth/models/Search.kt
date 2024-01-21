@@ -2,6 +2,10 @@ package me.invalidjoker.krinth.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @Serializable
@@ -32,13 +36,19 @@ data class ProjectHit(
     @SerialName("display_categories") val displayCategories: List<String>,
     val versions: List<String>,
     val follows: Int,
-    @SerialName("date_created") val dateCreated: String, // ISO-8601
-    @SerialName("date_modified") val dateModified: String, // ISO-8601
+    @SerialName("date_created") private val dateCreatedInternal: String, // ISO-8601
+    @SerialName("date_modified") private val dateModifiedInternal: String, // ISO-8601
     @SerialName("latest_version") val latestVersion: String,
     val license: String,
     val gallery: List<String>,
     @SerialName("featured_gallery") val featuredGallery: String?
-)
+) {
+    val dateCreated: Instant
+        get() = Instant.parse(dateCreatedInternal)
+
+    val dateModified: Instant
+        get() = Instant.parse(dateModifiedInternal)
+}
 
 @Serializable
 enum class SortIndex {

@@ -2,6 +2,10 @@ package me.invalidjoker.krinth.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Serializable
 enum class ClientSide {
@@ -182,10 +186,18 @@ data class Project(
     val id: String,
     val team: String,
 
-    val published: String,
-    val updated: String,
-    val approved: String?,
-    val queued: String?,
+    @SerialName("published")
+    private val publishedInternal: String,
+
+    @SerialName("updated")
+    private val updatedInternal: String,
+
+    @SerialName("approved")
+    private val approvedInternal: String?,
+
+    @SerialName("queued")
+    private val queuedInternal: String?,
+
     val followers: Int,
     val license: ProjectLicense?,
     val versions: List<String>, // TODO: Create Version class
@@ -194,4 +206,16 @@ data class Project(
     val gameVersions: List<String>,
     val loaders: List<String>,
     val gallery: List<GalleryImage>?
-)
+) {
+    val published: Instant
+        get() = Instant.parse(publishedInternal)
+
+    val updated: Instant
+        get() = Instant.parse(updatedInternal)
+
+    val approved: Instant?
+        get() = approvedInternal?.let { Instant.parse(it) }
+
+    val queued: Instant?
+        get() = queuedInternal?.let { Instant.parse(it) }
+}
